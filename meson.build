@@ -9,11 +9,11 @@ project(
 dependencies = [
 ]
 
-exe = executable(
-  'book1',
-  'book1.cpp',
+main = executable(
+  'main',
+  'src/raytracer/main.cpp',
   dependencies : dependencies,
   install : true,
 )
 
-test('basic', exe)
+test('main', main)
