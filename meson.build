@@ -6,13 +6,18 @@ project(
   default_options : ['warning_level=everything', 'werror=true'],
 )
 
-dependencies = [
-]
+raytracer_dep = declare_dependency(
+  include_directories : [
+    'src/raytracer',
+  ]
+)
 
 main = executable(
   'main',
-  'src/raytracer/main.cpp',
-  dependencies : dependencies,
+  'src/raytracer/raytracer/main.cpp',
+  dependencies : [
+    raytracer_dep,
+  ],
   install : true,
 )
 

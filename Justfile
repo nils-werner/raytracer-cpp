@@ -10,7 +10,11 @@ test:
     meson test -C testdir
 
 fmt:
-    clang-format -i -- **.cpp
+    #!/usr/bin/env bash
+    shopt -s globstar
+    clang-format -i -- **/*.cpp **/*.hpp
 
 lint:
-    clang-format --dry-run -Werror -- **.cpp
+    #!/usr/bin/env bash
+    shopt -s globstar
+    clang-format --dry-run -Werror -- **/*.cpp **/*.hpp

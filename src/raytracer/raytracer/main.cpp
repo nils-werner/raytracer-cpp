@@ -1,6 +1,4 @@
-#include <stdio.h>
-
-#define PROJECT_NAME "book1"
+#include <raytracer/main.hpp>
 
 int main(int argc, char **argv) {
     if (argc != 1) {
