@@ -1,6 +1,9 @@
 clean:
     - rm -rf builddir/ testdir/
 
+run: build
+    ./builddir/main
+
 build:
     meson setup builddir
     meson compile -C builddir
