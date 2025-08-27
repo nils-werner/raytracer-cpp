@@ -4,20 +4,18 @@ clean:
 run: build
     ./builddir/main
 
-build:
+setup:
     meson setup builddir
+
+build: setup
     meson compile -C builddir
 
 test:
     meson setup testdir
     meson test -C testdir
 
-fmt:
-    #!/usr/bin/env bash
-    shopt -s globstar
-    clang-format -i -- **/*.cpp **/*.hpp
+fmt: setup
+    ninja -C builddir clang-format
 
-lint:
-    #!/usr/bin/env bash
-    shopt -s globstar
-    clang-format --dry-run -Werror -- **/*.cpp **/*.hpp
+lint: setup
+    ninja -C builddir clang-format-check
