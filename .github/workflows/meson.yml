@@ -13,8 +13,9 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-python@v1
-    - uses: BSFishy/meson-build@v1.0.3
     - uses: extractions/setup-just@v3
+    - name: Install Python Dependencies
+      run: pip install meson ninja
     - name: Lint
       run: just lint
     - name: Build
