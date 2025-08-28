@@ -14,11 +14,9 @@ class camera {
         std::cout << "P3\n" << image_width << ' ' << image_height << "\n255\n";
 
         for (int j = 0; j < image_height; j++) {
-            std::clog << "\rScanlines remaining: " << (image_height - j) << ' '
-                      << std::flush;
+            std::clog << "\rScanlines remaining: " << (image_height - j) << ' ' << std::flush;
             for (int i = 0; i < image_width; i++) {
-                auto pixel_center =
-                    pixel00_loc + (i * pixel_delta_u) + (j * pixel_delta_v);
+                auto pixel_center = pixel00_loc + (i * pixel_delta_u) + (j * pixel_delta_v);
                 auto ray_direction = pixel_center - center;
                 ray r(center, ray_direction);
 
@@ -46,8 +44,7 @@ class camera {
         // Determine viewport dimensions.
         auto focal_length = 1.0;
         auto viewport_height = 2.0;
-        auto viewport_width =
-            viewport_height * (double(image_width) / image_height);
+        auto viewport_width = viewport_height * (double(image_width) / image_height);
 
         // Calculate the vectors across the horizontal and down the vertical
         // viewport edges.
@@ -60,10 +57,8 @@ class camera {
         pixel_delta_v = viewport_v / image_height;
 
         // Calculate the location of the upper left pixel.
-        auto viewport_upper_left =
-            center - vec3(0, 0, focal_length) - viewport_u / 2 - viewport_v / 2;
-        pixel00_loc =
-            viewport_upper_left + 0.5 * (pixel_delta_u + pixel_delta_v);
+        auto viewport_upper_left = center - vec3(0, 0, focal_length) - viewport_u / 2 - viewport_v / 2;
+        pixel00_loc = viewport_upper_left + 0.5 * (pixel_delta_u + pixel_delta_v);
     }
 
     color ray_color(const ray &r, const hittable &world) const {
