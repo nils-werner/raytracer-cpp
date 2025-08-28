@@ -3,7 +3,7 @@ project(
   'cpp',
   meson_version : '>= 1.3.0',
   version : '0.1',
-  default_options : ['warning_level=everything', 'werror=true'],
+  default_options : ['warning_level=3', 'werror=true'],
 )
 
 raytracer_dep = declare_dependency(
