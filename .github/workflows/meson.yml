@@ -1,0 +1,22 @@
+name: Meson Lint, Build, Test
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - uses: extractions/setup-just@v3
+    - name: Lint
+      run: just lint
+    - name: Build
+      run: just build
+    - name: Test
+      run: just test
+
