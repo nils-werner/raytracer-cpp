@@ -17,7 +17,7 @@ double hit_sphere(const point3 &center, double radius, const ray &r) {
 
 color ray_color(const ray &r, const hittable &world) {
     hit_record rec;
-    if (world.hit(r, 0, infinity, rec)) {
+    if (world.hit(r, interval(0, infinity), rec)) {
         return 0.5 * (rec.normal + color(1, 1, 1));
     }
 
@@ -32,7 +32,7 @@ int main() {
     // Image
 
     auto aspect_ratio = 16.0 / 9.0;
-    int image_width = 400;
+    int image_width = 1920;
 
     // Calculate the image height, and ensure that it's at least 1.
     int image_height = int(image_width / aspect_ratio);
