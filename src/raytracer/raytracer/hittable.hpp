@@ -1,6 +1,7 @@
 #pragma once
 
 #include <raytracer/ray.hpp>
+#include <raytracer/vec3.hpp>
 
 namespace raytracer {
 class hit_record {

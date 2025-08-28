@@ -11,6 +11,14 @@ int main() {
     int image_height = int(image_width / aspect_ratio);
     image_height = (image_height < 1) ? 1 : image_height;
 
+    // World
+
+    raytracer::hittable_list world;
+
+    world.add(make_shared<raytracer::sphere>(raytracer::point3(0, 0, -1), 0.5));
+    world.add(
+        make_shared<raytracer::sphere>(raytracer::point3(0, -100.5, -1), 100));
+
     // Camera
 
     auto focal_length = 1.0;
@@ -48,7 +56,7 @@ int main() {
             auto ray_direction = pixel_center - camera_center;
             raytracer::ray r(camera_center, ray_direction);
 
-            raytracer::color pixel_color = raytracer::ray_color(r);
+            raytracer::color pixel_color = raytracer::ray_color(r, world);
             raytracer::write_color(std::cout, pixel_color);
         }
     }

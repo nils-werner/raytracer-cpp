@@ -1,6 +1,8 @@
 #pragma once
 
 #include <raytracer/color.hpp>
+#include <raytracer/hittable.hpp>
+#include <raytracer/utils.hpp>
 #include <raytracer/vec3.hpp>
 
 namespace raytracer {
@@ -21,9 +23,7 @@ class ray {
     vec3 dir;
 };
 
-color ray_color(const ray &r);
 double hit_sphere(const point3 &center, double radius, const ray &r);
-
 double hit_sphere(const point3 &center, double radius, const ray &r) {
     vec3 oc = center - r.origin();
     auto a = r.direction().length_squared();
@@ -38,11 +38,11 @@ double hit_sphere(const point3 &center, double radius, const ray &r) {
     }
 }
 
-color ray_color(const ray &r) {
-    auto t = hit_sphere(point3(0, 0, -1), 0.5, r);
-    if (t > 0.0) {
-        vec3 N = unit_vector(r.at(t) - vec3(0, 0, -1));
-        return 0.5 * color(N.x() + 1, N.y() + 1, N.z() + 1);
+color ray_color(const ray &r, const hittable &world);
+color ray_color(const ray &r, const hittable &world) {
+    hit_record rec;
+    if (world.hit(r, 0, infinity, rec)) {
+        return 0.5 * (rec.normal + color(1, 1, 1));
     }
 
     vec3 unit_direction = unit_vector(r.direction());
