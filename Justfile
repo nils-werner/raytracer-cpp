@@ -21,3 +21,7 @@ fmt: setup
 
 lint: setup
     ninja -C builddir clang-format-check
+
+release: clean
+    meson setup builddir-release --buildtype=release
+    meson compile -C builddir-release
