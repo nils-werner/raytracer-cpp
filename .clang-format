@@ -3,3 +3,9 @@ BasedOnStyle: LLVM
 IndentWidth: 4
 InsertBraces: true
 ColumnLimit: 120
+AlignAfterOpenBracket: AlwaysBreak
+AllowAllParametersOfDeclarationOnNextLine: false
+AllowAllArgumentsOnNextLine:  false
+BinPackArguments: false
+BinPackParameters: false
+AlignEscapedNewlinesLeft: true
