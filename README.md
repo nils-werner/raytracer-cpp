@@ -11,9 +11,27 @@ just build
 ./builddir/main > image.ppm
 ```
 
-## Testing
+## Development
 
-Run formatting and testing in one go:
+Fix code style using `clang-format`
+
+```
+just fmt
+```
+
+Check code style using `clang-format` and `clang-tidy`
+
+```
+just lint
+```
+
+Run unit-tests
+
+```
+just test
+```
+
+Or all in one go
 
 ```
 just fmt lint test
