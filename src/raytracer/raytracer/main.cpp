@@ -9,7 +9,7 @@ int main() {
     raytracer::camera cam;
 
     cam.aspect_ratio = 16.0 / 9.0;
-    cam.image_width = 400;
+    cam.image_width = 800;
 
     cam.render(world);
 }
