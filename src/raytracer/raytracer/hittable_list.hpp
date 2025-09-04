@@ -36,5 +36,15 @@ class hittable_list : public hittable {
 
         return hit_anything;
     }
+
+	vec3 acceleration(const point3& pos) const override {
+		vec3 acc;
+		
+		for (const auto &object : objects) {
+			acc += object->acceleration(pos);
+		}
+
+		return acc;
+	}
 };
 } // namespace raytracer

@@ -7,8 +7,8 @@ namespace raytracer {
 class camera {
   public:
     double aspect_ratio = 16.0 / 9.0;
-    int image_width = 1920;
-    int samples_per_pixel = 10;
+    int image_width = 800;
+    int samples_per_pixel = 1;
     int max_depth = 10;
 
     void render(const hittable &world) {
@@ -92,7 +92,7 @@ class camera {
 
         hit_record rec;
 
-        if (world.hit(r, interval(0.001, infinity), rec)) {
+		if(trace_bending_ray(r, world, rec)) {
             ray scattered;
             color attenuation;
             if (rec.mat->scatter(r, rec, attenuation, scattered)) {
@@ -105,5 +105,31 @@ class camera {
         auto a = 0.5 * (unit_direction.y() + 1.0);
         return (1.0 - a) * color(1.0, 1.0, 1.0) + a * color(0.5, 0.7, 1.0);
     }
+
+	bool trace_bending_ray(
+		const ray& initial_ray,
+		const hittable& world,
+		hit_record& rec_out,
+		int max_steps = 100,
+		double step_size = 0.03
+	) const {
+		point3 pos = initial_ray.origin();
+		vec3 dir = unit_vector(initial_ray.direction());
+
+		for (int i = 0; i < max_steps; ++i) {
+			ray step_ray(pos, dir);
+			hit_record temp_rec;
+			if (world.hit(step_ray, interval(0.0, step_size), temp_rec)) {
+				rec_out = temp_rec;
+				return true;
+			}
+
+			dir += world.acceleration(pos) * step_size;
+			dir = unit_vector(dir);  
+			pos += dir * step_size;
+		}
+
+		return false; // no hit, ray escaped
+	}
 };
 } // namespace raytracer
