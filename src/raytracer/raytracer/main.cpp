@@ -18,7 +18,7 @@ int main() {
     raytracer::camera cam;
 
     cam.aspect_ratio = 16.0 / 9.0;
-    cam.image_width = 400;
+    cam.image_width = 1920;
     cam.samples_per_pixel = 10;
     cam.max_depth = 10;
 

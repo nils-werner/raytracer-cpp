@@ -92,7 +92,7 @@ class camera {
 
         hit_record rec;
 
-		if(trace_bending_ray(r, world, rec)) {
+        if (trace_bending_ray(r, world, rec)) {
             ray scattered;
             color attenuation;
             if (rec.mat->scatter(r, rec, attenuation, scattered)) {
@@ -106,30 +106,29 @@ class camera {
         return (1.0 - a) * color(1.0, 1.0, 1.0) + a * color(0.5, 0.7, 1.0);
     }
 
-	bool trace_bending_ray(
-		const ray& initial_ray,
-		const hittable& world,
-		hit_record& rec_out,
-		int max_steps = 100,
-		double step_size = 0.03
-	) const {
-		point3 pos = initial_ray.origin();
-		vec3 dir = unit_vector(initial_ray.direction());
+    bool trace_bending_ray(
+        const ray &initial_ray,
+        const hittable &world,
+        hit_record &rec_out,
+        int max_steps = 100,
+        double step_size = 0.03) const {
+        point3 pos = initial_ray.origin();
+        vec3 dir = unit_vector(initial_ray.direction());
 
-		for (int i = 0; i < max_steps; ++i) {
-			ray step_ray(pos, dir);
-			hit_record temp_rec;
-			if (world.hit(step_ray, interval(0.0, step_size), temp_rec)) {
-				rec_out = temp_rec;
-				return true;
-			}
+        for (int i = 0; i < max_steps; ++i) {
+            ray step_ray(pos, dir);
+            hit_record temp_rec;
+            if (world.hit(step_ray, interval(0.0, step_size), temp_rec)) {
+                rec_out = temp_rec;
+                return true;
+            }
 
-			dir += world.acceleration(pos) * step_size;
-			dir = unit_vector(dir);  
-			pos += dir * step_size;
-		}
+            dir += world.acceleration(pos) * step_size;
+            dir = unit_vector(dir);
+            pos += dir * step_size;
+        }
 
-		return false; // no hit, ray escaped
-	}
+        return false; // no hit, ray escaped
+    }
 };
 } // namespace raytracer
