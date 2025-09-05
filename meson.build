@@ -21,4 +21,8 @@ main = executable(
   install : true,
 )
 
-test('main', main)
+test(
+  'main',
+  main,
+  timeout: 60,
+)
