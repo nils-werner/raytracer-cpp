@@ -33,5 +33,6 @@ class hittable {
     virtual ~hittable() = default;
 
     virtual bool hit(const ray &r, interval ray_t, hit_record &rec) const = 0;
+    virtual vec3 acceleration(const point3 &pos) const = 0;
 };
 } // namespace raytracer

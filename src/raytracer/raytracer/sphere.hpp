@@ -7,8 +7,8 @@
 namespace raytracer {
 class sphere : public hittable {
   public:
-    sphere(const point3 &center, double radius, shared_ptr<material> mat)
-        : center(center), radius(std::fmax(0, radius)), mat(mat) {}
+    sphere(const point3 &center, double radius, shared_ptr<material> mat, double mass = 0.0)
+        : center(center), radius(std::fmax(0, radius)), mat(mat), mass(mass) {}
 
     bool hit(const ray &r, interval ray_t, hit_record &rec) const override {
         vec3 oc = center - r.origin();
@@ -41,9 +41,16 @@ class sphere : public hittable {
         return true;
     }
 
+    vec3 acceleration(const point3 &pos) const override {
+        vec3 r = pos - center;
+        double dist = std::max(r.length_squared(), 1e-4);
+        return -mass * unit_vector(r) / dist;
+    }
+
   private:
     point3 center;
     double radius;
     shared_ptr<material> mat;
+    double mass;
 };
 } // namespace raytracer
